@@ -10,10 +10,10 @@ List.pop()
 - VPS(Valid Parenthesis String)
 	```python
 	stack = list()
-	for p in ps:
-		if p == "(":
-			stack.append()
-		elif p == ")":
+	for char in sentence:
+		if char == "(":
+			stack.append(1)
+		elif char == ")":
 			if stack:
 				stack.pop()
 			else:
