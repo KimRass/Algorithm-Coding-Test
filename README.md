@@ -1,5 +1,3 @@
-Written by KimRass
-
 # Data Structures
 ## Stack
 - LIFO(Last-In-First-Out)
