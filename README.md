@@ -71,25 +71,26 @@ deque().popleft()
 - A cycle in a graph is a non-empty trail in which the only repeated vertices are the first and last vertices. A directed cycle in a directed graph is a non-empty directed trail in which the only repeated vertices are the first and last vertices.
 
 ## 1) DFS (Depth First Search)
-<!-- - Using Stack -->
 ```python
-while stack:
-	cur_node = stack.pop()
-	if visited[cur_node] == False:
-		visited[cur_node] = True
-		stack.extend(graph[cur_node])
+def dfs(start_node):
+	stack = [start_node]
+	while stack:
+		cur_node = stack.pop()
+		if visited[cur_node] == False:
+			visited[cur_node] = True
+			stack.extend(graph[cur_node])
+...
 ```
-<!-- - Using Recursion
-	```python
-	visited = list()
+<!-- ```python
+visited = list()
 
-	def dfs(cur_node):
-		visited.append(cur_node)
-		for next_node in graph[cur_node]:
-			if next_node not in visited:
-				dfs(next_node)
-		return visited
-	``` -->
+def dfs(cur_node):
+	visited.append(cur_node)
+	for next_node in graph[cur_node]:
+		if next_node not in visited:
+			dfs(next_node)
+	return visited
+``` -->
 
 ## 2) Breadth First Search
 ```python
