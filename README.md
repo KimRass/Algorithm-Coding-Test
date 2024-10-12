@@ -411,7 +411,42 @@ class Trie():
         return words
 ```
 
-# 4. Disjoint-Set(= Union-Find, Merge-Find)
+# 4. Backtracking
+- [Subset sum problem](https://github.com/KimRass/Algorithm-Coding-Test/subset_sum.py)
+```python
+arr = list()
+def dfs(step):
+    if step == M:
+        print(*arr, sep=" ")
+    else:
+        for i in range(1, N + 1):
+            arr.append(i)
+            dfs(step + 1)
+            arr.pop()
+```
+- N-Queen
+	```python
+	arr = list()
+	cnt = 0
+	def dfs(row):
+		global cnt
+		
+		if row == N:
+			cnt += 1
+		else:
+			for i in range(N):
+				for j in range(row):
+					if i in [arr[j] + j - row, arr[j], arr[j] - j + row]:
+						break
+				else:
+					arr.append(i)
+					dfs(row + 1)
+					arr.pop()
+
+	dfs(0)
+	```
+
+# 5. Disjoint-Set(= Union-Find, Merge-Find)
 - Two sets are said to be disjoint sets if they have no common elements.
 - Source: https://www.geeksforgeeks.org/disjoint-set-data-structures/
 - Problem: To find whether x and y belong to same group or not, i.e., to find if x and y are direct/indirect friends.
@@ -457,42 +492,6 @@ class Trie():
 
 # 5. Exhaustive Search
 ## 1) Brute-Force Attack
-
-# 6. Backtracking
-- Source: https://en.wikipedia.org/wiki/Backtracking
-- Backtracking is a general algorithm for finding solutions to some computational problems, notably constraint satisfaction problems, that incrementally builds candidates to the solutions, and abandons a candidate ("backtracks") as soon as it determines that the candidate cannot possibly be completed to a valid solution.
-```python
-arr = list()
-def dfs(step):
-    if step == M:
-        print(*arr, sep=" ")
-    else:
-        for i in range(1, N + 1):
-            arr.append(i)
-            dfs(step + 1)
-            arr.pop()
-```
-- N-Queen
-	```python
-	arr = list()
-	cnt = 0
-	def dfs(row):
-		global cnt
-		
-		if row == N:
-			cnt += 1
-		else:
-			for i in range(N):
-				for j in range(row):
-					if i in [arr[j] + j - row, arr[j], arr[j] - j + row]:
-						break
-				else:
-					arr.append(i)
-					dfs(row + 1)
-					arr.pop()
-
-	dfs(0)
-	```
 
 # 7. Recursion
 - Factorial
