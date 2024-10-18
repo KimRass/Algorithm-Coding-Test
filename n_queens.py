@@ -1,6 +1,3 @@
-# Source: https://www.acmicpc.net/problem/9663
-
-
 def dfs(N):
     stack = [([], set(), set(), set())]
     cnt = 0
@@ -28,5 +25,4 @@ def dfs(N):
 
 if __name__ == "__main__":
     N = 4
-    # N = int(input())
     print(dfs(N))

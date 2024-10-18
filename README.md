@@ -76,21 +76,21 @@ def dfs(start_node):
 	stack = [start_node]
 	while stack:
 		cur_node = stack.pop()
-		if visited[cur_node] == False:
-			visited[cur_node] = True
+		visited[cur_node] = True # Optional.
+		### DO SOMETHING
+		if visited[cur_node] == False: # Optional.
+			visited[cur_node] = True # Optional.
 			stack.extend(graph[cur_node])
+
+
+if __name__ == "__main__":
+	dfs(start_node)
 ...
 ```
-<!-- ```python
-visited = list()
 
-def dfs(cur_node):
-	visited.append(cur_node)
-	for next_node in graph[cur_node]:
-		if next_node not in visited:
-			dfs(next_node)
-	return visited
-``` -->
+### (1) Backtracking
+- [Subset sum problem](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/subset_sum.py)
+- [N-queens problem](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/n_queens.py)
 
 ## 2) Breadth First Search
 ```python
@@ -410,41 +410,6 @@ class Trie():
             next_nodes = list()
         return words
 ```
-
-# 4. Backtracking
-- [Subset sum problem](https://github.com/KimRass/Algorithm-Coding-Test/subset_sum.py)
-```python
-arr = list()
-def dfs(step):
-    if step == M:
-        print(*arr, sep=" ")
-    else:
-        for i in range(1, N + 1):
-            arr.append(i)
-            dfs(step + 1)
-            arr.pop()
-```
-- N-Queen
-	```python
-	arr = list()
-	cnt = 0
-	def dfs(row):
-		global cnt
-		
-		if row == N:
-			cnt += 1
-		else:
-			for i in range(N):
-				for j in range(row):
-					if i in [arr[j] + j - row, arr[j], arr[j] - j + row]:
-						break
-				else:
-					arr.append(i)
-					dfs(row + 1)
-					arr.pop()
-
-	dfs(0)
-	```
 
 # 5. Disjoint-Set(= Union-Find, Merge-Find)
 - Two sets are said to be disjoint sets if they have no common elements.
