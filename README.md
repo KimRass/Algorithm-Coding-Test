@@ -691,7 +691,22 @@ def func(n):
 - Fractional Knapsack Problem
 
 # 12. Two-Pointers
-- Time complexity: O(n)
+- Longest substring without repeating characters:
+	```python
+	# Time complexity: O(n)
+	def solve(s):
+		left = 0
+		unique_chars = set()
+		max_len = 0
+		for right in range(len(s)):
+			while s[right] in unique_chars:
+				unique_chars -= {s[left]}
+				left += 1
+			unique_chars.add(s[right])
+			max_len = max(max_len, right - left + 1)
+		return max_len
+	```
+<!-- - Time complexity: O(n)
 	```python
 	arr = sorted(arr)
 
@@ -725,7 +740,7 @@ def func(n):
 		elif func(left, right) < x:
 			right += 1
 			...
-	```
+	``` -->
 
 # 13. Binary Search
 - Time complexity: O(logn)
