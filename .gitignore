@@ -5,3 +5,5 @@ __pycache__/
 tempCodeRunnerFile
 tempCodeRunnerFile.*
 *.rgb
+rename.py
+*.rdb
