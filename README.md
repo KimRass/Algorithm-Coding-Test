@@ -654,84 +654,23 @@ def func(n):
 				mem[(idx_bef, max_w)] = max(largest_value(idx_bef - 1, max_w - items[idx_bef][0]) + items[idx_bef][1], largest_value(idx_bef - 1, max_w)) if items[idx_bef][0] <= max_w else largest_value(idx_bef - 1, max_w)
 		return mem[(idx_bef, max_w)]
 	```
-- LIS(Longest Increasing Subsequence)
-	- Time complexity: O(n^2)
-	```python
-	arr = [0] + arr
+- [LIS (Longest Increasing Subsequence)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/longest_increasing_subsequence.py):
+	- Time complexity: $O(n^2)$
+- [LCS (Longest Common Subsequence)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/longest_common_subsequence.py):
+	- Time complexity: $O(nk)$
+- [Longest common substring)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/longest_common_substring.py):
+	- Time complexity: $O(nk)$
+- [Prefix sum)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/prefix_sum.py):
+	- Time complexity:
 
-	# `mem[i]`: i를 가장 마지막 원소로 갖는 LIS의 길이.
-	mem = {0:0}
-	for i in arr[1:]:
-		# i를 마지막 원소로 갖는 LIS의 길이는, i보다 작은 값을 마지막 원소로 갖는 LIS의 길이에 1을 더한 값과 같습니다.
-		mem[i] = max([v for k, v in mem.items() if k < i]) + 1
-	print(max(mem.values()))
-	```
-	- Time complexity: O(nlogn)
-	- Dynamic programming + Binary search
-- LCS(Longest Common Subsequence)
-	- Time complexity: O(nk)
-	```python
-	mem = [[[0, ""] for _ in range(len(arr2) + 1)] for _ in range(len(arr1) + 1)]
-
-	maxim = 0
-	LCS = ""
-	for i in range(len(arr1)):
-		for j in range(len(arr2)):
-			if arr1[i] == arr2[j]:
-				mem[i + 1][j + 1][0] = mem[i][j][0] + 1
-				mem[i + 1][j + 1][1] = mem[i][j][1] + arr1[i]
-			else:
-				if mem[i][j + 1][0] > mem[i + 1][j][0]:
-					mem[i + 1][j + 1][0] = mem[i][j + 1][0]
-					mem[i + 1][j + 1][1] = mem[i][j + 1][1]
-				else:
-					mem[i + 1][j + 1][0] = mem[i + 1][j][0]
-					mem[i + 1][j + 1][1] = mem[i + 1][j][1]
-			if mem[i + 1][j + 1][0] > maxim:
-				maxim = mem[i + 1][j + 1][0]
-				LCS = mem[i + 1][j + 1][1]
-	```
-- Longest Common Substring
-	- Time complexity: O(nk)
-	```python
-	mem = [[0 for _ in range(len(string1))] for _ in range(len(string2))]
-	for i in range(len(string1)):
-		for j in range(len(string2)):
-			if string1[i] == string2[j]:
-				mem[i][j] = mem[i - 1][j - 1] + 1
-			else:
-				mem[i][j] = 0
-	```
-- Prefix Sum
-	```python
-	pref_sum = [0]
-	temp = 0
-	for i in arr:
-		temp += i
-		pref_sum.append(temp)
-	```
-	
 # 11. Greedy Algorithms
 - Source: https://www.geeksforgeeks.org/greedy-algorithms/
 - Greedy is an algorithmic paradigm that builds up a solution piece by piece, always choosing the next piece that offers the most obvious and immediate benefit. So the problems where choosing locally optimal also leads to global solution are best fit for Greedy.
 - Fractional Knapsack Problem
 
 # 12. Two-Pointers
-- Longest substring without repeating characters:
-	```python
-	# Time complexity: O(n)
-	def solve(s):
-		left = 0
-		unique_chars = set()
-		max_len = 0
-		for right in range(len(s)):
-			while s[right] in unique_chars:
-				unique_chars -= {s[left]}
-				left += 1
-			unique_chars.add(s[right])
-			max_len = max(max_len, right - left + 1)
-		return max_len
-	```
+- [Longest substring without repeating characters](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/longest_substring_without_repeating_characters.py):
+	- Time complexity: $O(n)$
 <!-- - Time complexity: O(n)
 	```python
 	arr = sorted(arr)
@@ -746,7 +685,7 @@ def func(n):
 		elif func(left, right) > x:
 			right -= 1
 			...
-		elif func(left, right) < x::
+		elif func(left, right) < x:
 			left += 1
 			...
 	```
@@ -881,44 +820,6 @@ else:
 	- This function is based on the fact that when a mismatch occurs, all the previous characters match correctly.
 - String-Search
 	- Time complexity: O(n)
-```python
-# s = "ABABABABABACABABACABAD"
-# p = "ABABACABA"
-# 를 가지고 이해하면 쉽습니다.
-failure_func = {0:0}
-i = 0
-j = 1
-while j < len(p):
-	if p[i] == p[j]:
-		failure_func[j] = i + 1
-		j += 1
-		i += 1
-	else:
-		if i == 0:
-			failure_func[j] = 0
-			j += 1
-		else:
-			# `p[i - 1] == p[j - 1]`, `p[i - 2] == p[j - 2]`, ..., `p[0] == p[j - i - 2]`가 성립할 것이고 `p[i] != p[j]`이므로 `failure_func[j]`는 `i + 1`이 될 수 없습니다. 따라서 `i`를 더 작게 만들어서 failure_func[j]`의 값을 찾아야 합니다. 이 때, `p[:i]`은 길이 `failure_func[i - 1]`만큼의 Prefix와 Suffix가 같습니다. 이 말은 즉, `p[failure_func[i - 1]] != p[i - 1]`임을 의미합니다. 그런데 앞서 살펴봤듯이 `p[i - 1] == p[j - 1]`이므로 `p[failure_func[i - 1]] != p[j - 1]`입니다. 따라서 `failure_func[j]`는 `failure_func[i - 1] + 2`가 될 수 없고 가능한 최댓값은 `failure_func[i - 1] + 1`입니다. 그러므로 `failure_func[j]`가 `failure_func[i - 1] + 1`과 같을 수 있는지 알아내기 위해 `i = failure_func[i - 1]`을 대입하고 다음 스텝에서 `p[i] == p[j]`를 만족하는지 확인하는 것입니다.
-			i = failure_func[i - 1]
-			
-i = 0
-j = 0
-match = list()
-while i < len(s):
-	if s[i] == p[j]:
-		if j == len(p) - 1:
-			match.append(i - len(p) + 1)
-			i += 1
-			j = failure_func[len(p) - 1]
-		else:
-			i += 1
-			j += 1
-	else:
-		if j == 0:
-			i += 1
-		else:
-			j = failure_func[j - 1]
-```
 
 ## 2) Rabin-Karp Algorithm
 - Source: https://www.programiz.com/dsa/rabin-karp-algorithm
@@ -989,41 +890,8 @@ bitmask = (1 << <<Position>>)
 ```
 
 # 19. Number Theory
-- Sieve of Eratosthenest
-	- Using Python List
-		```python
-		is_prime = [True for i in range(n + 1)]
-		is_prime[0] = False
-		is_prime[1] = False
-		for i in range(2, int(n**0.5) + 1):
-			if is_prime[i]:
-				for j in range(2*i, n + 1, i):
-					is_prime[j] = False      
-		primes = [i for i, j in enumerate(is_prime) if j == True] + [0]
-		```
-	- Using Python Set
-		```python
-		primes = {i for i in range(2, n + 1)}
-		for i in range(2, int(n**0.5) + 1):
-			if i in primes:
-				primes -= {j for j in range(2*i, n + 1, i)}
-		```
-- Prime Factorization
-	```python
-	m = int(n**0.5)
-    primes = {i for i in range(2, m + 1)}
-    for i in range(2, int(m**0.5) + 1):
-        if i in primes:
-            primes -= {j for j in range(2*i, m + 1, i)}
-
-	prime_facts = list()
-    for i in sorted(list(primes)):
-        while n%i == 0:
-            n //= i
-            prime_facts.append(i)
-    if n != 1:
-        prime_facts.append(n)
-	```
+- [Sieve of Eratosthenest](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/sieve_of_eratosthenest.py)
+- [Prime factorization](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/prime_factorization.py)
 - Greatest Common Divisor
 	- Implementation
 		```python
