@@ -493,24 +493,39 @@ class Trie():
 	```
 
 # 8. Sort
-- Stable sorting algorithm: Sorting algorithm which maintains the relative order of records with equal keys (i.e. valuies)).
-- Comparison sorting algorithm
+- Stable sorting algorithm: Sorting algorithm which maintains the relative order of records with equal keys (i.e. valuies).
+- Comparison sorting algorithm:
 
 ## 1) Bubble Sort
-- Time Complexity: O(n^2)
-- One of stable sorting algorithms
-- One of comparison sorting algorithms
+- Stable sorting algorithm.
+- Comparison sorting algorithm.
+- Time Complexity:
+	- Best case: $O(n)$
+	- Worst case: $(n - 1) + (n - 2) + \ldots + 1 = \frac{1}{2}n(n - 1) \rightarrow O(n^2)$
+	- Average case: $O(n^2)$
 ```python
-for i in range(len(arr), 0, -1):
-    for j in range(i - 1):
-        if arr[j] > arr[j + 1]:
-            arr[j], arr[j + 1] = arr[j + 1], arr[j]
+def bubble_sort(arr: list, verbose=False) -> list:
+    sorted_arr = arr.copy()
+    for leng in range(len(sorted_arr), 0, -1):
+        # 한 번의 루프가 끝날 때마다, `leng` 만큼의 길이를 갖는 리스트에서 가장 큰 원소는 가장 오른쪽에 배치될 것이 보장됩니다.
+        swapped = False
+        for idx in range(leng - 1):
+            if verbose:
+                print(idx, idx + 1)
+            if sorted_arr[idx] > sorted_arr[idx + 1]:
+                sorted_arr[idx], sorted_arr[idx + 1] = sorted_arr[idx + 1], sorted_arr[idx]
+                swapped = True
+        if verbose:
+            print(sorted_arr, swapped)
+        if not swapped:
+            break
+    return sorted_arr
 ```
 
 ## 2) Selection Sort
 - Time Complexity: O(n^2)
 - Not a stable sorting algorithm
-- One of comparison sorting algorithms
+- Comparison sorting algorithm.
 ```python
 for i in range(len(arr)):
     min_j = i
@@ -522,8 +537,8 @@ for i in range(len(arr)):
 
 ## 3) Insertion Sort
 - Time Complexity: O(n^2)
-- One of stable sorting algorithms
-- One of comparison sorting algorithms
+- Stable sorting algorithm.
+- Comparison sorting algorithm.
 ```python
 for i in range(1, len(arr)):
     for j in range(i, 0, -1):
@@ -534,31 +549,42 @@ for i in range(1, len(arr)):
 ```
 
 ## 4) Merge Sort
-- Time Complexity: O(nlogn)
-- One of stable sorting algorithms
-- One of comparison sorting algorithms
+- Stable sorting algorithm.
+- Comparison sorting algorithm.
+- Time Complexity:
+	- Merge Sort always performs the same number of comparisons and merging steps, regardless of whether the input array is sorted or not.
+	- Best case: $O(n\log n)$
+	- Worst case: $O(n\log n)$
+	- Average case: $O(n\log n)$
+- divide and conquer sorting algorithm
 ```python
-def merge_sort(arr):
+def merge(arr1: list, arr2: list) -> list:
+    i = j = 0
+    merged_arr = []
+    while i < len(arr1) and j < len(arr2):  # the merge process takes $O(n)$ time.
+        if arr1[i] < arr2[j]:
+            merged_arr.append(arr1[i])
+            i += 1
+        else:
+            merged_arr.append(arr2[j])
+            j += 1
+    while i < len(arr1):
+        merged_arr.append(arr1[i])
+        i += 1
+    while j < len(arr2):
+        merged_arr.append(arr2[j])
+        j += 1
+    return merged_arr
+
+
+def merge_sort(arr: list) -> list:
     if len(arr) == 1:
         return arr
-    else:
-        left = merge_sort(arr[:len(arr)//2])
-        right = merge_sort(arr[len(arr)//2:])
-        
-        new_arr = list()
-        i = 0
-        j = 0
-        while i < len(left) and j < len(right):
-            if left[i] <= right[j]:
-                new_arr.append(left[i])
-                i += 1
-            else:
-                new_arr.append(right[j])
-                j += 1
-        new_arr += left[i:]
-        new_arr += right[j:]
-        
-        return new_arr
+
+    mid = len(arr) // 2
+    left = arr[: mid]
+    right = arr[mid:]  # Each split takes constant time to compute the middle index of the array. The number of times the array can be divided in half is proportional to the logarithm of the array size ($O(\log2 n)$ = $O(\log n)$).
+    return merge(arr1=merge_sort(left), arr2=merge_sort(right))
 ```
 
 ## 5) Heap Sort
