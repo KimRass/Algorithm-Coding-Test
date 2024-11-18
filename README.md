@@ -121,18 +121,17 @@ while queue:
 - 각 간선에 가중치가 있다면 사용 가능합니다. 간선들 중 단 하나라도 가중치가 음수이면 이 알고리즘은 사용할 수 없습니다.
 ```python
 import math
-import heapq as hq
 
 # 지금까지 알려진, 출발지에서 해당 노드로 가는 최단 거리를 기록하는 Dictionary를 만듭니다.
 min_dists = {i:0 if i == start else math.inf for i in range(1, V + 1)}
 hp = [(0, start)]
 while hp:
-    cur_dist, cur_node = hq.heappop(hp)
+    cur_dist, cur_node = heapq.heappop(hp)
     for dist, next_node in graph[cur_node]:
 		# 지금까지 알려진 `next_node`까지의 최단 거리보다 `cur_node`를 거쳐서 `next_node`로 가는 거리가 더 짧다면 그 값으로 `min_dists[next_node]`를 업데이트합니다.
         if cur_dist + dist < min_dists[next_node]:
             min_dists[next_node] = cur_dist + dist
-            hq.heappush(hp, (min_dists[next_node], next_node))
+            heapq.heappush(hp, (min_dists[next_node], next_node))
 ```
 
 ## 4) Bellman–Ford Algorithm
@@ -255,64 +254,12 @@ for btw in range(1, V + 1):
 
 ### (1) Binary Tree
 - A tree whose elements have at most 2 children.
-### Complete Binary Tree
-- A binary tree in which all the levels are completely filled except possibly the lowest one, which is filled from the left.
-#### Full Binary Tree
-- A binary tree in which every node has 0 or 2 children.
-#### Binary Search Tree
-- Reference: https://gingerkang.tistory.com/86
-- Left < Parent < Right
-```python
-class Node():
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-		self.right = None
-		
-class BinarySearchTree():
-    def __init__(self, root):
-        self.root = root
-    def insert(self, value):
-		self.cur_node = self.root
-		while True:
-			if value < self.cur_node.value:
-				if self.cur_node.left == None:
-					self.cur_node.left = Node(value)
-					break
-				else:
-					self.cur_node = self.cur_node.left
-			else:
-				if self.cur_node.right == None:
-					self.cur_node.right = Node(value)
-					break
-				else:
-					self.cur_node = self.cur_node.right
-					
-					
-root = Node(1)
-bst = BinarySearchTree(root)
-```
-#### Heap
-- Min Heap: Parent < Child
-```python
-import heqpq as hq
-
-hq.heappush(<<Heap Object>>, <<Element>>)
-hq.heqppop(<<Heap Object>>)
-```
-- Max Heap: Parent > Child
-```python
-import heqpq as hq
-
-hq.heappush(<<Heap Object>>, -<<Element>>)
-hq.heqppop(<<Heap Object>>)
-```
-```python
-hq.nsmallest()
-hq.nlargest()
-# Transform a list into a heap in linear time. s(In-place function)
-hq.heapify()
-```
+	- Full binary tree: Every node has 0 or 2 children.
+	- Complete binary tree: All the levels are completely filled except possibly the lowest one, which is filled from the left. (높은 레벨부터 아래로 차례대로 채워나감.)
+		- Heap:
+			- Min Heap: Parent <= Child
+			- Max Heap: Parent >= Child
+	- Binary search tree: Left <= Parent <= Right
 ### Quadtree
 - Source: https://en.wikipedia.org/wiki/Quadtree
 - A quadtree is a tree data structure in which each internal node has exactly four children. Quadtrees are the two-dimensional analog of octrees and are most often used to partition a two-dimensional space by recursively subdividing it into four quadrants or regions.
@@ -361,55 +308,8 @@ def postorder(node):
 ```
 ## Breadth First search
 - Level-Order Traverse: Level-order
+
 ## 7) Trie
-- Source: https://velog.io/@gojaegaebal/210126-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%8050%EC%9D%BC%EC%B0%A8-%ED%8A%B8%EB%9D%BC%EC%9D%B4Trie-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B0%9C%EB%85%90-%EB%B0%8F-%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0feat.-Class
-```python
-class Node():
-    def __init__(self, key, flag=None):
-        self.key = key
-        self.flag = flag
-        self.child = dict()
-        
-class Trie():
-    def __init__(self):
-        self.head = Node(None)
-    def insert(self, word):
-        cur_node = self.head
-        for char in word:
-            if char not in cur_node.child:
-                cur_node.child[char] = Node(char)
-            cur_node = cur_node.child[char]
-        cur_node.flag = word
-    def search(self, word):
-        cur_node = self.head
-        for char in word:
-            if char in cur_node.child:
-                cur_node = cur_node.child[char]
-            else:
-                return False
-        if cur_node.flag == word:
-            return True
-        else:
-            return False
-    def startwith(self, word):
-        cur_node = self.head
-        for char in word:
-            if char in cur_node.child:
-                cur_node = cur_node.child[char]
-            else:
-                return None
-        cur_nodes = [cur_node]
-        next_nodes = list()
-        words = list()
-        while cur_nodes:
-            for node in cur_nodes:
-                if node.flag != None:
-                    words.append(node.flag)
-                next_nodes.extend(list(node.child.values()))
-            cur_nodes = next_nodes
-            next_nodes = list()
-        return words
-```
 
 # 5. Disjoint-Set(= Union-Find, Merge-Find)
 - Two sets are said to be disjoint sets if they have no common elements.
@@ -455,7 +355,8 @@ class Trie():
 	        size[x_rep] += size[y_rep]
 	```
 
-# 5. Exhaustive Search
+# 6. Exhaustive Search
+
 ## 1) Brute-Force Attack
 
 # 7. Recursion
@@ -496,59 +397,13 @@ class Trie():
 - Stable sorting algorithm: Sorting algorithm which maintains the relative order of records with equal keys (i.e. valuies).
 - Comparison sorting algorithm:
 
-## 1) Bubble Sort
-- Stable sorting algorithm.
-- Comparison sorting algorithm.
+## 1) Quick Sort
 - Time Complexity:
-	- Best case: $O(n)$
-	- Worst case: $(n - 1) + (n - 2) + \ldots + 1 = \frac{1}{2}n(n - 1) \rightarrow O(n^2)$
-	- Average case: $O(n^2)$
-```python
-def bubble_sort(arr: list, verbose=False) -> list:
-    sorted_arr = arr.copy()
-    for leng in range(len(sorted_arr), 0, -1):
-        # 한 번의 루프가 끝날 때마다, `leng` 만큼의 길이를 갖는 리스트에서 가장 큰 원소는 가장 오른쪽에 배치될 것이 보장됩니다.
-        swapped = False
-        for idx in range(leng - 1):
-            if verbose:
-                print(idx, idx + 1)
-            if sorted_arr[idx] > sorted_arr[idx + 1]:
-                sorted_arr[idx], sorted_arr[idx + 1] = sorted_arr[idx + 1], sorted_arr[idx]
-                swapped = True
-        if verbose:
-            print(sorted_arr, swapped)
-        if not swapped:
-            break
-    return sorted_arr
-```
+	<!-- - Best case: $O(n\log n)$ -->
+	- Worst case: $O(n^2)$
+	- Average case: $O(n\log n)$
 
-## 2) Selection Sort
-- Time Complexity: O(n^2)
-- Not a stable sorting algorithm
-- Comparison sorting algorithm.
-```python
-for i in range(len(arr)):
-    min_j = i
-    for j in range(i, len(arr)):
-        if arr[j] < arr[min_j]:
-            min_j = j
-    arr[i], arr[min_j] = arr[min_j], arr[i]
-```
-
-## 3) Insertion Sort
-- Time Complexity: O(n^2)
-- Stable sorting algorithm.
-- Comparison sorting algorithm.
-```python
-for i in range(1, len(arr)):
-    for j in range(i, 0, -1):
-        if arr[j - 1] > arr[j]:
-            arr[j], arr[j - 1] = arr[j - 1], arr[j]
-		else:
-			break
-```
-
-## 4) Merge Sort
+## 2) Merge Sort
 - Stable sorting algorithm.
 - Comparison sorting algorithm.
 - Time Complexity:
@@ -587,11 +442,60 @@ def merge_sort(arr: list) -> list:
     return merge(arr1=merge_sort(left), arr2=merge_sort(right))
 ```
 
-## 5) Heap Sort
+## 3) Heap Sort
 - Time Complexity: O(nlogn)
 
-## 6) Quick Sort
-- Time Complexity: O(nlogn)
+## 4) Bubble Sort
+- Stable sorting algorithm.
+- Comparison sorting algorithm.
+- Time Complexity:
+	- Best case: $O(n)$
+	- Worst case: $(n - 1) + (n - 2) + \ldots + 1 = \frac{1}{2}n(n - 1) \rightarrow O(n^2)$
+	- Average case: $O(n^2)$
+```python
+def bubble_sort(arr: list, verbose=False) -> list:
+    sorted_arr = arr.copy()
+    for leng in range(len(sorted_arr), 0, -1):
+        # 한 번의 루프가 끝날 때마다, `leng` 만큼의 길이를 갖는 리스트에서 가장 큰 원소는 가장 오른쪽에 배치될 것이 보장됩니다.
+        swapped = False
+        for idx in range(leng - 1):
+            if verbose:
+                print(idx, idx + 1)
+            if sorted_arr[idx] > sorted_arr[idx + 1]:
+                sorted_arr[idx], sorted_arr[idx + 1] = sorted_arr[idx + 1], sorted_arr[idx]
+                swapped = True
+        if verbose:
+            print(sorted_arr, swapped)
+        if not swapped:
+            break
+    return sorted_arr
+```
+
+## 5) Insertion Sort
+- Time Complexity: O(n^2)
+- Stable sorting algorithm.
+- Comparison sorting algorithm.
+```python
+for i in range(1, len(arr)):
+    for j in range(i, 0, -1):
+        if arr[j - 1] > arr[j]:
+            arr[j], arr[j - 1] = arr[j - 1], arr[j]
+		else:
+			break
+```
+
+## 6) Selection Sort
+- Time Complexity: O(n^2)
+- Not a stable sorting algorithm
+- Comparison sorting algorithm.
+```python
+for i in range(len(arr)):
+    min_j = i
+    for j in range(i, len(arr)):
+        if arr[j] < arr[min_j]:
+            min_j = j
+    arr[i], arr[min_j] = arr[min_j], arr[i]
+```
 
 ## 7) Counting Sort
 - Not a comparison sorting algorithm
@@ -939,3 +843,19 @@ bitmask = (1 << <<Position>>)
 	for i in range(minim, 0, -1):
 		res //= i
 	```
+<!-- 
+```python
+import heapq
+
+heapq.heappush(<<Heap Object>>, <<Element>>)
+heapq.heqppop(<<Heap Object>>)
+
+heapq.heappush(<<Heap Object>>, -<<Element>>)
+heapq.heqppop(<<Heap Object>>)
+```
+```python
+heapq.nsmallest()
+heapq.nlargest()
+# Transform a list into a heap in linear time. s(In-place function)
+heapq.heapify()
+``` -->
