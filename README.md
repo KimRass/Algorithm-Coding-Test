@@ -7,10 +7,9 @@ List.append()
 List.pop()
 ```
 - [VPS (Valid Parenthesis String)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/valid_parenthesis_string.py):
-	- Time complexity: $O(n)$
+	- Time complexity: $O(n)$, Space complexity: $O(n)$
 - [NGE (Next Greater Element)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/next_greater_element.py):
-	- Time complexity: $O(N)$
-	<!-- - Auxiliary space: $O(N)$ -->
+	- Time complexity: $O(n)$, Space complexity: $O(n)$
 
 ## 2) Queue
 - LILO(Last-In-Last-Out)
@@ -334,9 +333,10 @@ def postorder(node):
 ## 1) Brute-Force Attack
 
 # 7. Recursion
-- Factorial
-- Fibonacci Sequence
-- Tower of Hanoi
+- [Factorial](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/factorial.py):
+- [Fibonacci sequence](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/fibonacci_sequence.py):
+- [Tower of Hanoi](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/tower_of_hanoi.py):
+- [Binary strings without consecutive 1's](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/binary_strings_without_consecutive_1s.py):
 
 # 8. Sort
 <details>
@@ -345,13 +345,13 @@ def postorder(node):
 - Stable sorting algorithm: Sorting algorithm which maintains the relative order of records with equal keys (i.e. valuies).
 - Comparison sorting algorithm:
 
-## 1) Quick Sort
+## 1) [Quick Sort](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/quick_sort.py)
 - Time Complexity:
 	- Best case: $O(n\log n)$
 	- Worst case: $O(n^2)$
 	- Average case: $O(n\log n)$
 
-## 2) Merge Sort
+## 2) [Merge Sort](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/merge_sort.py)
 - Stable sorting algorithm.
 - Comparison sorting algorithm.
 - Time Complexity:
@@ -360,68 +360,21 @@ def postorder(node):
 	- Worst case: $O(n\log n)$
 	- Average case: $O(n\log n)$
 - divide and conquer sorting algorithm
-```python
-def merge(arr1: list, arr2: list) -> list:
-    i = j = 0
-    merged_arr = []
-    while i < len(arr1) and j < len(arr2):  # the merge process takes $O(n)$ time.
-        if arr1[i] < arr2[j]:
-            merged_arr.append(arr1[i])
-            i += 1
-        else:
-            merged_arr.append(arr2[j])
-            j += 1
-    while i < len(arr1):
-        merged_arr.append(arr1[i])
-        i += 1
-    while j < len(arr2):
-        merged_arr.append(arr2[j])
-        j += 1
-    return merged_arr
 
-
-def merge_sort(arr: list) -> list:
-    if len(arr) == 1:
-        return arr
-
-    mid = len(arr) // 2
-    left = arr[: mid]
-    right = arr[mid:]  # Each split takes constant time to compute the middle index of the array. The number of times the array can be divided in half is proportional to the logarithm of the array size ($O(\log2 n)$ = $O(\log n)$).
-    return merge(arr1=merge_sort(left), arr2=merge_sort(right))
-```
-
-## 3) Heap Sort
+## 3) [Heap Sort](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/heap_sort.py)
 - Best case: $O(n\log n)$
 	- Worst case: $O(n\log n)$
 	- Average case: $O(n\log n)$
 
-## 4) Bubble Sort
+## 4) [Bubble Sort](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/bubble_sort.py)
 - Stable sorting algorithm.
 - Comparison sorting algorithm.
 - Time Complexity:
 	- Best case: $O(n)$
 	- Worst case: $(n - 1) + (n - 2) + \ldots + 1 = \frac{1}{2}n(n - 1) \rightarrow O(n^2)$
 	- Average case: $O(n^2)$
-```python
-def bubble_sort(arr: list, verbose=False) -> list:
-    sorted_arr = arr.copy()
-    for leng in range(len(sorted_arr), 0, -1):
-        # 한 번의 루프가 끝날 때마다, `leng` 만큼의 길이를 갖는 리스트에서 가장 큰 원소는 가장 오른쪽에 배치될 것이 보장됩니다.
-        swapped = False
-        for idx in range(leng - 1):
-            if verbose:
-                print(idx, idx + 1)
-            if sorted_arr[idx] > sorted_arr[idx + 1]:
-                sorted_arr[idx], sorted_arr[idx + 1] = sorted_arr[idx + 1], sorted_arr[idx]
-                swapped = True
-        if verbose:
-            print(sorted_arr, swapped)
-        if not swapped:
-            break
-    return sorted_arr
-```
 
-## 5) Insertion Sort
+## 5) [Insertion Sort](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/insertion_sort.py)
 - 가장 직관적인 정렬 알고리즘.
 - Time Complexity:
 	- Best case: $O(n)$
@@ -430,11 +383,11 @@ def bubble_sort(arr: list, verbose=False) -> list:
 - Stable sorting algorithm.
 - Comparison sorting algorithm.
 
-## 6) Selection Sort
+## 6) [Selection Sort](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/selection_sort.py)
 - Time Complexity: O(n^2)
 - Not a stable sorting algorithm
 - Comparison sorting algorithm.
-
+<!-- 
 ## 7) Counting Sort
 - Not a comparison sorting algorithm
 - Time complexity: O(n + k)(k is the range of elements of the array)
@@ -450,7 +403,7 @@ new_arr = list()
 for k, v in count.items():
     for _ in range(v):
         new_arr.append(k)
-```
+``` -->
 </details>
 
 # 9. Coordinate Compression
@@ -633,10 +586,7 @@ else:
 	left = mid + 1
 ```
 
-# 15. Implementation
-- 풀이를 떠올리는 것은 쉽지만 소스코드로 옮기기 어려운 문제.
-
-# 16. String-Searching Algorithms
+# 15. String-Searching Algorithms
 
 ## 1) KMP Algorithm(Knuth-Morris-Pratt Algorithm)
 - Source: https://blog.encrypted.gg/857
@@ -660,7 +610,9 @@ else:
 	hash = ord(s[0])*(d**(len(p) - 1)) + ord(s[1])*(d**(len(p) - 2)) + ... + ord(s[len(p) - 1])
 	```
 
-# 17. Hash
+# 16. Hash
+<details>
+<summary>Click to expand</summary>
 - source: https://wangin9.tistory.com/entry/hash
 - 사람은 누구든지 "이름" = "홍길동", "생일" = "몇 월 몇 일" 등으로 구분할 수 있다. 파이썬은 영리하게도 이러한 대응 관계를 나타낼 수 있는 자료형을 가지고 있다. 요즘 사용하는 대부분의 언어들도 이러한 대응 관계를 나타내는 자료형을 갖고 있는데, 이를 연관 배열(Associative array) 또는 해시(Hash)라고 한다. 파이썬에서는 이러한 자료형을 딕셔너리(Dictionary)라고 하는데, 단어 그대로 해석하면 사전이라는 뜻이다. 즉, people이라는 단어에 "사람", baseball이라는 단어에 "야구"라는 뜻이 부합되듯이 딕셔너리는 Key와 Value라는 것을 한 쌍으로 갖는 자료형이다. 예컨대 Key가 "baseball"이라면 Value는 "야구"가될 것이다. 딕셔너리는 리스트나 튜플처럼 순차적으로(sequential) 해당 요소값을 구하지 않고 Key를 통해 Value를 얻는다. 이것이 바로 딕셔너리의 가장 큰 특징이다. baseball이라는 단어의 뜻을 찾기 위해 사전의 내용을 순차적으로 모두 검색하는 것이 아니라 baseball이라는 단어가 있는 곳만 펼쳐 보는 것이다.
 - 규모가 큰 데이터를 비교해야할 때 list 형태로 순차적으로 비교하는 것은 시간이 O(n2) 걸리게 된다. 이때 hash 를 사용하게 되면 시간을 절약할 수 있다.
@@ -669,8 +621,11 @@ else:
 	- Direct Addressing Table은 key-value 쌍의 데이터를 배열에 저장할 key 값을 직접적으로 배열의 인덱스로 사용하는 방법이다. 예를 들면 400인 데이터가 있다면 이는 배열의 인덱스가 400인 위치에 키 값을 저장하고 포인터로 데이터를 연결한다. 똑같은 키 값이 존재하지 않는다고 가정하면 삽입 시에는 각 키마다 자신의 공간이 존재하므로 그 위치에다 저장하면 되고 삭제 시에는 해당 키의 위치에 NULL값을 넣어주면 된다. 탐색 시에는 해당 키의 위치를 그냥 찾아가서 참조하면 된다. 찾고자 하는 데이터의 key만 알고 있으면 즉시 위치 찾는 것이 가능하므로 탐색, 저장, 삭제, 갱신은 모두 선형시간 O(1)로 매우 빠른 속도로 처리가 가능하다. 다만 key 값의 최대 크기만큼 배열이 할당 되기 때문에 크기가 매우 크고 저장하고자 하는 데이터가 적다면 공간을 많이 낭비할 수 있다는 단점이 있다.
 - Hash Table
 	- Hash Table은 key-value 쌍에서 key 값 테이블에 저장할 때 Direct Addressing Table과 달리 함수를 이용해 key값의 계산을 수행한 후 그 결과값을 배열의 인덱스로 사용하여 저장하는 방식이다. 여기서 key 값을 계산하는 함수는 해쉬 함수(Hash Function)이라고 부르며 해쉬 함수는 입력으로 key를 받아서 배열의크기-1 사이의 값을 출력한다. 해쉬의 첫 정의대로 임의의 숫자를 배열의 크기만큼으로 변환시킨 것이다. 이경우 k 값이 h(k)로 해쉬되었다고 하며 h(k)는 k의 해쉬값이라고 한다.
+</details>
 
-# 18. Bitmask
+# 17. Bitmask
+<details>
+<summary>Click to expand</summary>
 - Source: https://en.wikipedia.org/wiki/Mask_(computing)
 - In computer science, a mask or bitmask is data that is used for bitwise operations, particularly in a bit field. Using a mask, multiple bits in a byte, nibble, word etc. can be set either on, off or inverted from on to off (or vice versa) in a single bitwise operation.
 ```python
@@ -688,8 +643,9 @@ bitmask = (1 << <<Position>>)
 # Toggling a bit
 <<Target>> ^ bitmask
 ```
+</details>
 
-# 19. Number Theory
+# 18. Number Theory
 - [Sieve of Eratosthenest](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/sieve_of_eratosthenest.py)
 - [Prime factorization](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/prime_factorization.py)
 - Greatest Common Divisor
