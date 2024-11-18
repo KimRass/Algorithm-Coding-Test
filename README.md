@@ -1,45 +1,18 @@
-# 1. Stack
+# Stack, Queue, Depue
+
+## 1) Stack
 - LIFO(Last-In-First-Out)
 ```python
 List.append()
 List.pop()
 ```
-- VPS(Valid Parenthesis String)
-	```python
-	stack = list()
-	for char in sentence:
-		if char == "(":
-			stack.append(1)
-		elif char == ")":
-			if stack:
-				stack.pop()
-			else:
-				print("NO")
-				break
-	else:
-		print("NO" if stack else "YES")
-	```
-- NGE(Next Greater Element)
-	- Source: https://www.geeksforgeeks.org/next-greater-element/
-	- The Next greater Element for an element x is the first greater element on the right side of x in the array. (Elements for which no greater element exist, consider the next greater element as -1.)
-	- Time complexity: O(N), Auxiliary space: O(N)
-		```python
-		stack = [0]
-		nges = [-1 for _ in range(len(arr))]
-		i = 1
-		while i < len(arr):
-			while stack:
-				popped = stack.pop()
-				if arr[i] > arr[popped]:
-					nges[popped] = i
-				else:        
-					stack.append(popped)
-					break
-			stack.append(i)
-			i += 1
-		```
+- [VPS (Valid Parenthesis String)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/valid_parenthesis_string.py):
+	- Time complexity: $O(n)$
+- [NGE (Next Greater Element)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/next_greater_element.py):
+	- Time complexity: $O(N)$
+	<!-- - Auxiliary space: $O(N)$ -->
 
-# 2. Queue
+## 2) Queue
 - LILO(Last-In-Last-Out)
 - 데이터가 들어오는 위치는 가장 뒤(Rear 또는 Back이라고 한다.)에 있고, 데이터가 나가는 위치는 가장 앞(Front라고 한다.)
 - `List.pop(0)` 사용 시 첫 번째 element를 pop한 후 나머지 elements의 Index를 1칸씩 당기는 과정에서 O(n)의 계산량이 발생한다.(Source: https://www.acmicpc.net/board/view/47845)
@@ -49,9 +22,10 @@ from collections import deque
 deque().append()
 deque().popleft()
 ```
-### Priority Queue
+### (1) Priority Queue
 - Priority queue can be implemented by heap data structure.
-## Deque(Double Ended Queue)
+
+## 3) Deque (Double Ended Queue)
 ```python
 from collections import deque
 
@@ -61,7 +35,7 @@ deque().pop()
 deque().popleft()
 ```
 
-# 3. Graph Traversal
+# 2. Graph Traversal
 - Source: https://en.wikipedia.org/wiki/Graph_theory
 - Graph is made up of vertices (also called nodes or points) which are connected by edges (also called links or lines).
 - Undirected graph is a graph where edges link two vertices symmetrically, and directed graph is a the one where edges link two vertices asymmetrically.
@@ -361,45 +335,19 @@ def postorder(node):
 
 # 7. Recursion
 - Factorial
-	```python
-	def fac(n):
-		if n == 0 or n == 1:
-			return 1
-		else:
-			return n*fac(n - 1)
-	```
-- Fibonacci Number
-	```python
-	def fibo(n):
-		if n == 0:
-			return 0
-		elif n == 1:
-			return 1
-		else:
-			return fibo(n - 1) + fibo(n - 2)
-	```
+- Fibonacci Sequence
 - Tower of Hanoi
-	```python
-	import sys
-
-	sys.setrecursionlimit(10**9)
-
-	def hanoi(n, a, b, c):
-		if n == 1:
-			print(a, c)
-		else:    
-			hanoi(n - 1, a, c, b)
-			print(a, c)
-			hanoi(n - 1, b, a, c)
-	```
 
 # 8. Sort
+<details>
+<summary>Click to expand</summary>
+
 - Stable sorting algorithm: Sorting algorithm which maintains the relative order of records with equal keys (i.e. valuies).
 - Comparison sorting algorithm:
 
 ## 1) Quick Sort
 - Time Complexity:
-	<!-- - Best case: $O(n\log n)$ -->
+	- Best case: $O(n\log n)$
 	- Worst case: $O(n^2)$
 	- Average case: $O(n\log n)$
 
@@ -443,7 +391,9 @@ def merge_sort(arr: list) -> list:
 ```
 
 ## 3) Heap Sort
-- Time Complexity: O(nlogn)
+- Best case: $O(n\log n)$
+	- Worst case: $O(n\log n)$
+	- Average case: $O(n\log n)$
 
 ## 4) Bubble Sort
 - Stable sorting algorithm.
@@ -472,30 +422,18 @@ def bubble_sort(arr: list, verbose=False) -> list:
 ```
 
 ## 5) Insertion Sort
-- Time Complexity: O(n^2)
+- 가장 직관적인 정렬 알고리즘.
+- Time Complexity:
+	- Best case: $O(n)$
+	- Worst case: $O(n^2)$
+	- Average case: $O(n^2)$
 - Stable sorting algorithm.
 - Comparison sorting algorithm.
-```python
-for i in range(1, len(arr)):
-    for j in range(i, 0, -1):
-        if arr[j - 1] > arr[j]:
-            arr[j], arr[j - 1] = arr[j - 1], arr[j]
-		else:
-			break
-```
 
 ## 6) Selection Sort
 - Time Complexity: O(n^2)
 - Not a stable sorting algorithm
 - Comparison sorting algorithm.
-```python
-for i in range(len(arr)):
-    min_j = i
-    for j in range(i, len(arr)):
-        if arr[j] < arr[min_j]:
-            min_j = j
-    arr[i], arr[min_j] = arr[min_j], arr[i]
-```
 
 ## 7) Counting Sort
 - Not a comparison sorting algorithm
@@ -513,6 +451,7 @@ for k, v in count.items():
     for _ in range(v):
         new_arr.append(k)
 ```
+</details>
 
 # 9. Coordinate Compression
 - Source: https://medium.com/algorithms-digest/coordinate-compression-2fff95326fb
@@ -542,29 +481,14 @@ def func(n):
 		mem[n] = ...
 	return mem[n]
 ```
-- 0-1 Knapsack Problem
-	- References: https://gsmesie692.tistory.com/113
-	```python
-	mem = dict()
-	# largest_value(idx_bef, max_w): Index `idx_bef` 전까지의 Items를 가지고 무게 `max_w` 이하로 만들 수 있는 최대 Value.
-	def largest_value(idx_bef, max_w):
-		if (idx_bef, max_w) not in mem:
-			if idx_bef == 0:
-				if items[0][0] <= max_w:
-					mem[(idx_bef, max_w)] = items[0][1]
-				else:
-					mem[(idx_bef, max_w)] = 0
-			else:
-				mem[(idx_bef, max_w)] = max(largest_value(idx_bef - 1, max_w - items[idx_bef][0]) + items[idx_bef][1], largest_value(idx_bef - 1, max_w)) if items[idx_bef][0] <= max_w else largest_value(idx_bef - 1, max_w)
-		return mem[(idx_bef, max_w)]
-	```
+- [0-1 Knapsack Problem](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/0-1_knapsack_problem.py):
 - [LIS (Longest Increasing Subsequence)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/longest_increasing_subsequence.py):
 	- Time complexity: $O(n^2)$
 - [LCS (Longest Common Subsequence)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/longest_common_subsequence.py):
 	- Time complexity: $O(nk)$
-- [Longest common substring)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/longest_common_substring.py):
+- [Longest common substring](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/longest_common_substring.py):
 	- Time complexity: $O(nk)$
-- [Prefix sum)](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/prefix_sum.py):
+- [Prefix sum](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/prefix_sum.py):
 	- Time complexity:
 
 # 11. Greedy Algorithms
@@ -735,34 +659,6 @@ else:
 	```python
 	hash = ord(s[0])*(d**(len(p) - 1)) + ord(s[1])*(d**(len(p) - 2)) + ... + ord(s[len(p) - 1])
 	```
-```python
-# If `d` is too small, hash collision easily occurs. So `d` should be at least larger than the number of characters in both `s` and `p`. 또한 `a`가 `p`의 원시근이 아닐 경우에도 Hash collision이 쉽게 일어납니다.
-d = 302
-# Choose a prime number for `q` in such a way that we can perform all the calculations with single-precision arithmetic.
-q = 1000000007
-h = 1
-for i in range(len(p) - 1):
-    h = (h*d)%q
-
-hash_s = 0
-hash_p = 0
-for i in range(len(p)):
-    hash_s = (d*hash_s + ord(s[i]))%q
-    hash_p = (d*hash_p + ord(p[i]))%q
-
-j = 0
-match = list()
-while j < len(s) - len(p):
-    if hash_s == hash_p:
-        # Check character by character.
-        for k in range(len(p)):
-            if s[k + j] != p[k]:
-                break
-        else:
-            match.append(j)
-    hash_s = ((hash_s - ord(s[j])*h)*d + ord(s[j + len(p)]))%q
-    j += 1
-```
 
 # 17. Hash
 - source: https://wangin9.tistory.com/entry/hash
@@ -797,52 +693,10 @@ bitmask = (1 << <<Position>>)
 - [Sieve of Eratosthenest](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/sieve_of_eratosthenest.py)
 - [Prime factorization](https://github.com/KimRass/Algorithm-Coding-Test/blob/main/prime_factorization.py)
 - Greatest Common Divisor
-	- Implementation
-		```python
-		   gcd = 1
-		for i in primes:
-			while A%i == 0 and B%i == 0:
-				gcd *= i
-				A //= i
-				B //= i
-		```
-	- Using Euclidean Algorithm
-		```python	
-		def gcd(a, b):
-			if a >= b:
-				return b if a%b == 0 else gcd(b, a%b)
-			else:
-				return a if b%a == 0 else gcd(a, b%a)
-		```
 - Least Common Multiple
-	- Implementation
-		```python
-		lcm = 1
-		for i in primes:
-			while A%i == 0 or B%i == 0:
-				lcm *= i
-				if A%i == 0:
-					A //= i
-				if B%i == 0:
-					B //= i
-		```
 - Combination(= Binomial Coefficient)
 	- The number of `k`-combinations If the set has `n` elements
-	```python
-	import math
-	
-	math.factorial(n)//(math.factorial(n - k)*math.factorial(k))
-	```
-	```python
-	# n*(n - 1)*...*(n - k + 1)/(1*2*...*k)
-	minim = min(k, n - k)
-	maxim = max(k, n - k)
-	res = 1
-	for i in range(n, maxim, -1):
-		res *= i
-	for i in range(minim, 0, -1):
-		res //= i
-	```
+
 <!-- 
 ```python
 import heapq
